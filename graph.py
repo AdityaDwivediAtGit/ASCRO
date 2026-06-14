@@ -64,13 +64,22 @@ def create_graph():
 ascro_app = create_graph()
 
 def run_workflow(query: str):
-    initial_state = {"query": query, "revision_count": 0}
+    accumulated_state = {
+        "query": query, 
+        "revision_count": 0,
+        "research_summary": "",
+        "prediction_result": {},
+        "mitigation_plan": "",
+        "is_approved": False,
+        "critic_feedback": "",
+        "current_agent": ""
+    }
     
     # To track the trace, we will stream the events
     events = []
-    for event in ascro_app.stream(initial_state):
+    for event in ascro_app.stream(accumulated_state):
         for node_name, state_update in event.items():
             events.append((node_name, state_update))
+            accumulated_state.update(state_update)
             
-    final_state = events[-1][1] if events else initial_state
-    return events, final_state
+    return events, accumulated_state
