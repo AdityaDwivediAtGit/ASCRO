@@ -107,5 +107,5 @@ with gr.Blocks(title="ASCRO - Agentic Supply Chain Resilience Orchestrator", the
             """)
 
 if __name__ == "__main__":
-    # Launch on 0.0.0.0 for hackathon access
-    demo.launch(server_name="0.0.0.0", server_port=7860)
+    # Launch on 0.0.0.0 and enable share=True for notebooks.amd.com proxy access
+    demo.launch(server_name="0.0.0.0", server_port=7860, share=True)
